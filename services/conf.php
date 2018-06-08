@@ -5,10 +5,10 @@ class CONF {
 	public $DEMO_VERSION = false;
 
 	/* Data configuration for database */
-	public $DB_SERVER = "speckle-umbrella-35.iam.gserviceaccount.com";
-	public $DB_USER = "root";
+	public $DB_SERVER = "35.202.58.44";
+	public $DB_USER = "heroku-user";
 	public $DB_PASSWORD = "G~6j+f92B8|+NDXJnhw*";
-	public $DB_NAME = "data-floups";
+	public $DB_NAME = "flerg";
 	
 	/* FCM key for notification */
 	public $FCM_KEY = "AIzaSyCv-90mFpx3SCWlIKSXXXXXXXXXXXXXXXXXXXXXX";
