@@ -1,7 +1,7 @@
 angular.module('App').controller('AddOrderController', function ($rootScope, $scope, $http, $mdToast, $mdDialog, $route, $timeout, request) {
 	// not login checker
 	if (!$rootScope.isCookieExist()) window.location.href = '#login';
-	
+
 	// define variable
 	var self 		= $scope, root = $rootScope;
 	var is_new 		= ( root.getCurOrderId() == null );
@@ -11,8 +11,8 @@ angular.module('App').controller('AddOrderController', function ($rootScope, $sc
 
 	root.search_enable 		= false;
 	root.toolbar_menu 		= null;
-	root.pagetitle 			= (is_new) ? 'Add Order' : 'Edit Order';
-	self.button_text 		= (is_new) ? 'SAVE' : 'UPDATE';
+	root.pagetitle 			= (is_new) ? 'Nueva Orden' : 'Editar Orden';
+	self.button_text 		= (is_new) ? 'GUARDAR' : 'ACTUALIZAR';
 	self.submit_loading 	= false;
 	self.status_array 		= (is_new) ? ["WAITING"] : ["WAITING", "CANCEL"];
 	self.shipping_array 	= [];
@@ -20,7 +20,7 @@ angular.module('App').controller('AddOrderController', function ($rootScope, $sc
 	self.date_ship			= new Date();
 	self.now			   	= new Date();
 	root.closeAndDisableSearch();
-	
+
 	/* check edit or add new*/
 	if (is_new) {
 		original = { buyer: null, address: null, email: null, shipping: "FEDEX", date_ship: null, phone: null, comment: null, status: "WAITING", total_fees: 0, tax:0, created_at: now, last_update: now };
@@ -236,7 +236,7 @@ function AddProductControllerDialog($scope, $rootScope, $mdDialog, request, $mdT
     }
 
     request.getAllCategory().then(function(resp){
-        var temp_category = {id:-1, name:'All Category'};
+        var temp_category = {id:-1, name:'Todos los departamentos'};
         self.categories_data = resp.data;
         self.categories_data.unshift(temp_category);
     });

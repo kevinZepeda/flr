@@ -1,7 +1,7 @@
 angular.module('App').controller('AddProductController', function ($rootScope, $scope, $http, $mdToast, $mdDialog, $route, $timeout, request) {
 	// not login checker
 	if (!$rootScope.isCookieExist()) window.location.href = '#login';
-	
+
 	// define variable
 	var self 		= $scope, root = $rootScope;
 	var is_new 		= ( root.getCurProductId() == null );
@@ -11,18 +11,18 @@ angular.module('App').controller('AddProductController', function ($rootScope, $
 
 	root.search_enable 		= false;
 	root.toolbar_menu 		= null;
-	root.pagetitle 			= (is_new) ? 'Add Product' : 'Edit Product';
-	self.button_text 		= (is_new) ? 'SAVE' : 'UPDATE';
+	root.pagetitle 			= (is_new) ? 'Agregar Articulo' : 'Editar Articulo';
+	self.button_text 		= (is_new) ? 'GUARDAR' : 'ACTUALIZAR';
 	self.submit_loading 	= false;
 	self.image 				= {};
 	self.images 			= [{}, {}, {}, {}];
 	self.images_obj 		= [null, null, null, null];
 	self.category_selected 	= [];
 	root.closeAndDisableSearch();
-	
+
 	self.status_array 		= ["READY STOCK", "OUT OF STOCK", "SUSPEND"];
 	request.getAllCategory().then(function(resp){ self.categories_data = resp.data; });
-	
+
 	/* check edit or add new*/
 	if (is_new) {
 		self.category_valid = false;
@@ -34,7 +34,7 @@ angular.module('App').controller('AddProductController', function ($rootScope, $
 		self.category_valid  		= true;
 		self.original_category 		= [];
 		self.original_images 		= angular.copy(self.images);
-		request.getOneProduct(root.getCurProductId()).then(function(resp){ 
+		request.getOneProduct(root.getCurProductId()).then(function(resp){
 			original = resp.data;
 			self.product = angular.copy(original);
 		});
@@ -49,7 +49,7 @@ angular.module('App').controller('AddProductController', function ($rootScope, $
 			for (var i = 0; i < 4; i++) {
 				self.images_obj[i] = (resp.data[i]==null || resp.data[i]=="") ? null : resp.data[i];
 			}
-		});		
+		});
 	}
 
 	/* for selecting category */
@@ -91,10 +91,10 @@ angular.module('App').controller('AddProductController', function ($rootScope, $
 	self.submit = function(p) {
 
 		self.submit_loading = true;
-		self.resp_submit    = null;		
+		self.resp_submit    = null;
 		self.submit_done    = false;
 		self.done_arr       = [false, false, false];
-		
+
 		if(is_new){ // create
 			p.image = p.name.replace(/[^\w\s]/gi, '') + root.getExtension(self.image.file);
 			self.images_obj = [null, null, null, null];
@@ -103,7 +103,7 @@ angular.module('App').controller('AddProductController', function ($rootScope, $
 				if(resp.status == 'success'){
 					self.prepareProductCategory(resp.data.id);
 					request.insertAllProductCategory(self.product_category).then(function(){ self.done_arr[0] = true; }); // insert table relation
-					request.uploadFileToUrl(self.image.file, dir, p.image, "").then(function(){ self.done_arr[1] = true; }); // upload primary image	
+					request.uploadFileToUrl(self.image.file, dir, p.image, "").then(function(){ self.done_arr[1] = true; }); // upload primary image
 					self.uploadOptionalImages(resp.data.id, 0, 0); // upload optional image
 				}else{
 					self.done_arr[0] = true;
@@ -131,7 +131,7 @@ angular.module('App').controller('AddProductController', function ($rootScope, $
 		}
 
 	};
-  
+
 	/* Submit watch onFinish Checker */
 	self.$watchCollection('done_arr', function(new_val, old_val) {
 		if(self.submit_done || (new_val[0] && new_val[1] && new_val[2])){
@@ -181,7 +181,7 @@ angular.module('App').controller('AddProductController', function ($rootScope, $
 			self.product_category.push(item);
 		}
 	};
-	
+
 	/* uploader for optional images, using recursive method*/
 	self.uploadOptionalImages = function(p_id, n, idx){
 		if(n < self.images.length){
@@ -194,23 +194,23 @@ angular.module('App').controller('AddProductController', function ($rootScope, $
 					if(resp.status == 'success'){
 						self.images_obj[n] = { product_id:p_id, name:name };
 						self.uploadOptionalImages(p_id, (n+1), idx+1);
-					}else{ 
-						self.uploadOptionalImages(p_id, (n+1), idx); 
+					}else{
+						self.uploadOptionalImages(p_id, (n+1), idx);
 					}
 				});
-			} else { 
-				self.uploadOptionalImages(p_id, (n + 1), idx); 
+			} else {
+				self.uploadOptionalImages(p_id, (n + 1), idx);
 			}
 		} else {
 			var _index = 0;
 			for (var i = 0; i < 4; i++) {
 				if(_index < self.images_obj.length && self.images_obj[_index] == null){
 					self.images_obj.splice(_index, 1);
-				} else { 
-					_index++; 
+				} else {
+					_index++;
 				}
 			}
-			if(self.images_obj.length > 0){ 
+			if(self.images_obj.length > 0){
 				request.insertAllProductImage(self.images_obj).then(function(resp){ self.done_arr[2] = true; });
 			} else {
 				self.done_arr[2] = true;
@@ -239,7 +239,7 @@ angular.module('App').controller('AddProductController', function ($rootScope, $
 			'   <img style="margin: auto; max-width: 100%; max-height= 100%;" ng-src="{{file_url}}">' +
 			'  </md-dialog-content>' +
 			'</md-dialog>'
-			
+
 		})
 	};
 

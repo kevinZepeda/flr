@@ -1,7 +1,7 @@
 angular.module('App').controller('AddCategoryController', function ($rootScope, $scope, $http, $mdToast, $mdDialog, $route, $timeout, request) {
 	// not login checker
 	if (!$rootScope.isCookieExist()) window.location.href = '#login';
-	
+
 	// define variable
 	var self 		= $scope, root = $rootScope;
 	var is_new 		= ( root.getCurCategoryId() == null );
@@ -11,12 +11,12 @@ angular.module('App').controller('AddCategoryController', function ($rootScope, 
 
 	root.search_enable 		= false;
 	root.toolbar_menu 		= null;
-	root.pagetitle 			= (is_new) ? 'Add Category' : 'Edit Category';
-	self.button_text 		= (is_new) ? 'SAVE' : 'UPDATE';
+	root.pagetitle 			= (is_new) ? 'Nuevo Departamento' : 'Editar Departamento';
+	self.button_text 		= (is_new) ? 'GUARDAR' : 'ACTUALIZAR';
 	self.submit_loading 	= false;
 	self.icon 				= {};
 	root.closeAndDisableSearch();
-	
+
 	/* check edit or add new*/
 	if (is_new) {
 		self.icon.valid = false;
@@ -24,7 +24,7 @@ angular.module('App').controller('AddCategoryController', function ($rootScope, 
 		self.category = angular.copy(original);
 	} else {
 		self.icon.valid = true;
-		request.getOneCategory(root.getCurCategoryId()).then(function(resp){ 
+		request.getOneCategory(root.getCurCategoryId()).then(function(resp){
 			original = resp.data;
 			self.category = angular.copy(original);
 		});
@@ -44,12 +44,12 @@ angular.module('App').controller('AddCategoryController', function ($rootScope, 
 	/* method for submit action */
 	self.done_arr = [false, false, false];
 	self.submit = function(c) {
-		
+
 		self.submit_loading = true;
-		self.resp_submit    = null;		
+		self.resp_submit    = null;
 		self.submit_done    = false;
 		self.done_arr       = [false, false];
-		
+
 		if(is_new){ // create
 			c.icon = c.name.replace(/[^\w\s]/gi, '') + root.getExtension(self.icon.file);
 			request.insertOneCategory(c).then(function(resp){
@@ -57,7 +57,7 @@ angular.module('App').controller('AddCategoryController', function ($rootScope, 
 				if(resp.status == 'success'){
 					self.done_arr[0] = true;
 					request.uploadFileToUrl(self.icon.file, dir, c.icon, "").then(function(){  // upload icon image
-						self.done_arr[1] = true; 
+						self.done_arr[1] = true;
 					});
 				}else{
 					self.done_arr[0] = true;
@@ -73,11 +73,11 @@ angular.module('App').controller('AddCategoryController', function ($rootScope, 
 				if(resp.status == 'success'){
 					self.done_arr[0] = true;
 					if(self.icon.file != null){ // upload icon image
-						request.uploadFileToUrl(self.icon.file, dir, c.icon, oldname).then(function(){ 
-							self.done_arr[1] = true; 
-						}); 
-					} else { 
-						self.done_arr[1] = true; 
+						request.uploadFileToUrl(self.icon.file, dir, c.icon, oldname).then(function(){
+							self.done_arr[1] = true;
+						});
+					} else {
+						self.done_arr[1] = true;
 					}
 				} else {
 					self.done_arr[0] = true;
@@ -87,7 +87,7 @@ angular.module('App').controller('AddCategoryController', function ($rootScope, 
 		}
 
 	};
-  
+
 	/* Submit watch onFinish Checker */
 	self.$watchCollection('done_arr', function(new_val, old_val) {
 		if(self.submit_done || (new_val[0] && new_val[1])){
@@ -138,7 +138,7 @@ angular.module('App').controller('AddCategoryController', function ($rootScope, 
 			'   <img style="margin: auto; max-width: 100%; max-height= 100%;" ng-src="{{file_url}}">' +
 			'  </md-dialog-content>' +
 			'</md-dialog>'
-			
+
 		})
 	};
 

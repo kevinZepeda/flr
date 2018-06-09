@@ -12,7 +12,7 @@ angular.module('App').controller('LoginController', function ($rootScope, $scope
 	root.isLogin = true;
 	root.toolbar_menu = null;
 
-	$rootScope.pagetitle = 'Login';
+	$rootScope.pagetitle = 'EntrarS';
 	self.submit_loading = false;
 
 	self.doLogin = function () {

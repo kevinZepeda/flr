@@ -4,16 +4,16 @@ angular.module('App').controller('NotificationController', function ($rootScope,
 
 	if (!root.isCookieExist()) { window.location.href = '#login'; }
 
-	root.pagetitle = 'Notification';
+	root.pagetitle = 'Notificaciones';
 	self.loading = true;
 	root.search_enable = true;
 	root.toolbar_menu = { title: 'Send' }
-	
+
 	// receiver barAction from rootScope
 	self.$on('barAction', function (event, data) {
 		self.sendNotification(event, null);
 	});
-	
+
 	// receiver submitSearch from rootScope
 	self.$on('submitSearch', function (event, data) {
 		self.q = data;
@@ -70,7 +70,7 @@ function SendControllerDialog($rootScope, $scope, $mdDialog, request, $mdToast, 
 	self.cancel = function () { $mdDialog.cancel(); };
 	self.showResult = false;
 	var body = root.getNotificationBody('ALL', null, null, null, null);
-	if(self.object != null) { 
+	if(self.object != null) {
 		self.title = self.title + ' to : '+self.object.device;
 		body.registration_ids = new Array(self.object.regid);
 		body.data.type = "ONE";

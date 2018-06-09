@@ -1,13 +1,13 @@
 <md-card class="md-whiteframe-1dp md-padding">
 	<md-card-content>
-		<h2 class="md-title">Application Setting</h2>
+		<h2 class="md-title">Configuración</h2>
 		<form role="form" name="thisForm">
 			<div layout="row">
 				<md-input-container flex="30">
 					<label>Currency</label>
 					<md-select ng-model="selected_currency">
-						<md-option ng-repeat="cur in arr_currency" value="{{cur.code}}" selected="{{cur.code===conf_currency?'selected':''}}"> 
-							{{cur.code}} - {{cur.name}} 
+						<md-option ng-repeat="cur in arr_currency" value="{{cur.code}}" selected="{{cur.code===conf_currency?'selected':''}}">
+							{{cur.code}} - {{cur.name}}
 						</md-option>
 					</md-select>
 				</md-input-container>
@@ -27,7 +27,7 @@
 
 			<div layout="row" layout-align="start start">
 				<md-input-container flex="50">
-					<label>Shipping</label>
+					<label>Embarques</label>
 					<md-chips ng-model="conf_shipping" required></md-chips>
 				</md-input-container>
 				<md-button md-no-ink class="md-primary" ng-click="resetShipping()" style="margin-top:20px;">RESET</md-button>
@@ -35,12 +35,12 @@
 
 			<br><br>
 			<md-divider></md-divider>
-			<p class="hint"><b>TAX</b> : Value Added Tax (VAT) or Goods and Services Tax (GST). This tax will be added in every purchase transaction.
-			<br><b>Feature News</b> : Maximum News Info display on home android app. Recommended value is 5</p>
-			
+
+			<br><b>Anuncios</b> : Maximo de anuncios mostrados en la app</p>
+
 			<div layout="row" layout-align="end center" flex="100">
 				<md-button ng-if="!submit_loading_conf" ng-disabled="thisForm.$invalid || !isReadySubmitConf()" ng-click="submitConf()" class="md-raised md-accent">
-					SAVE
+					Guardar
 				</md-button>
 				<md-progress-circular ng-if="submit_loading_conf" class="md-accent" md-mode="indeterminate" md-diameter="30px"></md-progress-circular>
 			</div>
@@ -52,7 +52,7 @@
 <br>
 <md-card class="md-whiteframe-1dp md-padding">
 	<md-card-content>
-		<h2 class="md-title">User Panel Setting</h2>
+		<h2 class="md-title">User Panel </h2>
 		<form role="form" name="thisFormUser">
 			<div layout="row">
 				<md-input-container flex="30">
@@ -113,4 +113,3 @@
 		</form>
 	</md-card-content>
 </md-card>
-

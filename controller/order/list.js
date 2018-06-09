@@ -5,8 +5,8 @@ angular.module('App').controller('OrderController', function ($rootScope, $scope
 	var root = $rootScope;
 
 	root.search_enable = true;
-    root.toolbar_menu = { title: 'Add Order' };
-	root.pagetitle = 'Order';
+    root.toolbar_menu = { title: 'Agregar Orden' };
+	root.pagetitle = 'ORDEN';
 
 	// receiver barAction from rootScope
     self.$on('barAction', function (event, data) {
@@ -85,9 +85,9 @@ angular.module('App').controller('OrderController', function ($rootScope, $scope
     };
 
     self.cancelOrder = function(ev, po) {
-        var confirm = $mdDialog.confirm().title('Cancel Order Confirmation');
-            confirm.content('Are you sure want to <b>CANCEL</b> order from : '+po.buyer+' ?');
-            confirm.targetEvent(ev).ok('OK').cancel('CANCEL');
+        var confirm = $mdDialog.confirm().title('Cancelar Orden');
+            confirm.content('¿Estás seguro que quieres <b>CANCELAR</b> la orden asignada a : '+po.buyer+' ?');
+            confirm.targetEvent(ev).ok('OK').cancel('CANCELAR');
 
         $mdDialog.show(confirm).then(function() {
             var new_ob = angular.copy(po);

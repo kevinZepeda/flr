@@ -5,21 +5,21 @@ angular.module('App').controller('CategoryController', function ($rootScope, $sc
 	if (!root.isCookieExist()) { window.location.href = '#login'; }
 
 	root.search_enable = true;
-	root.toolbar_menu = { title: 'Add Category' };
-	root.pagetitle = 'Category';
-	
+	root.toolbar_menu = { title: 'Agregar Departamento' };
+	root.pagetitle = 'Departamentos';
+
 	// receiver barAction from rootScope
 	self.$on('barAction', function (event, data) {
 		root.setCurCategoryId("");
 		window.location.href = '#create_category';
 	});
-	
+
 	// receiver submitSearch from rootScope
 	self.$on('submitSearch', function (event, data) {
 		self.q = data;
 		self.loadPages();
 	});
-	
+
 	self.loadPages = function () {
 		$_q = self.q ? self.q : '';
 		request.getAllCategoryCount($_q).then(function (resp) {
@@ -47,25 +47,25 @@ angular.module('App').controller('CategoryController', function ($rootScope, $sc
 		modulo_item: 0,
 		onPageChanged: self.loadPages,
 	};
-	
+
 	self.editCategory = function(ev, c) {
 		root.setCurCategoryId(c.id);
 		window.location.href = '#create_category';
 	};
 
 	self.deleteCategory = function(ev, c) {
-		var confirm = $mdDialog.confirm().title('Delete Confirmation');
-			confirm.content('Are you sure want to delete Category : '+c.name+' ?');
-			confirm.targetEvent(ev).ok('OK').cancel('CANCEL');
-			
+		var confirm = $mdDialog.confirm().title('¿Seguro que quieres borrar?');
+			confirm.content('No puedes restablecer el departamento de : '+c.name);
+			confirm.targetEvent(ev).ok('OK').cancel('CANCELAR');
+
 		var dir = "../../../uploads/category/";
-		var images_obj = new Array();	
+		var images_obj = new Array();
 		images_obj.push(c.icon);
 		$mdDialog.show(confirm).then(function() {
 			request.deleteOneCategory(c.id).then(function(res){
 				if(res.status == 'success'){
 					request.deleteFiles(dir, images_obj).then(function(res){ });
-				    root.showConfirmDialogSimple('', 'Delete Category '+c.name+' <b>Success</b>!', function(){
+				    root.showConfirmDialogSimple('', 'Se elimino el departamento de '+c.name+' <b>correctamente</b>!', function(){
 				        window.location.reload();
 				    });
 				}else{
@@ -75,7 +75,7 @@ angular.module('App').controller('CategoryController', function ($rootScope, $sc
 		});
 
 	};
-	
+
 	/* dialog View Icon*/
 	self.viewIcon = function (ev, f) {
 		$mdDialog.show({
@@ -86,7 +86,7 @@ angular.module('App').controller('CategoryController', function ($rootScope, $sc
 			'   <img style="margin: auto; max-width: 100%; max-height= 100%;" ng-src="{{file_url}}">' +
 			'  </md-dialog-content>' +
 			'</md-dialog>'
-			
+
 		})
 	};
 
@@ -115,11 +115,11 @@ angular.module('App').controller('CategoryController', function ($rootScope, $sc
                 request.updateOneCategory($scope.obj.id, $scope.obj).then(function(resp){
                     self.resp_submit = resp;
                     if(resp.status == 'success'){
-                        root.showConfirmDialogSimple('', 'Publish Category '+obj.name+' <b>Success</b>!', function(){
+                        root.showConfirmDialogSimple('', 'Publish Departamento '+obj.name+' <b>Success</b>!', function(){
                             window.location.reload();
                         });
                     }else{
-                        var failed_txt = 'Opps , <b>Failed Publish</b> Category '+obj.name;
+                        var failed_txt = 'Opps , <b>Failed Publish</b> Departamento '+obj.name;
                         if(resp.msg != null) failed_txt = resp.msg;
                         root.showInfoDialogSimple('', failed_txt);
                     }

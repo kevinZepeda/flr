@@ -4,33 +4,29 @@ angular.module('App').controller('RootCtrl', function ($rootScope, $scope, $mdSi
 	var root = $rootScope;
 
 	/* panel name and version */
-	root.PANEL_NAME = "MARKEET";
-	root.PANEL_VERSION = "1.1";
+	root.PANEL_NAME = "Flerg_app";
+	root.PANEL_VERSION = "10.1";
 
 	/*Constant String data */
-	root.PRODUCT_UPDATE = "Update Markeet Product";
-	root.PRODUCT_NEW = "New Markeet Product";
+	root.PRODUCT_UPDATE = "Actualizar articulo";
+	root.PRODUCT_NEW = "Nuevo articulo de Flerg_app";
 
 	/* Data for side menu
 	 * icon reference : https://material.io/icons/
 	 */
 	self.sidenav = {
 		actions: [
-			{ name: 'DASHBOARD', icon: 'store', link: '#dashboard', sub: false },
-			{ name: 'ORDER LIST', icon: 'event_note', link: '#order', sub: false },
-			{ name: 'PRODUCT', icon: 'widgets', link: '#product', sub: false },
-			{ name: 'CATEGORY', icon: 'dns', link: '#category', sub : false },
-			{ name: 'NEWS INFO', icon: 'subject', link: '#news', sub: false },
-			{ name: 'APP', icon: 'adb', link: '#application', sub: false },
-			{ name: 'NOTIFICATION', icon: 'notifications', link: '#notification', sub: false },
-			{name: 'SETTING', icon: 'settings', link: '#setting', sub: false },
-			{ name: 'ABOUT', icon: 'error', link: '#about', sub: false }
+			{ name: 'Dashboard', icon: 'home', link: '#dashboard', sub: false },
+			{ name: 'Ordenes de entrega', icon: 'event_note', link: '#order', sub: false },
+			{ name: 'Artículos', icon: 'widgets', link: '#product', sub: false },
+			{ name: 'Departamentos', icon: 'dns', link: '#category', sub : false },
+			{ name: 'Errores', icon: 'error', link: '#about', sub: false }
 		]
 	};
 
-	self.bgColor = '#cccccc';
+	self.bgColor = '#fff';
 	self.black = '#000000';
-	
+
 	// flag toolbar action button
 	root.search_enable = false;
 	root.search_show = false;
@@ -42,40 +38,40 @@ angular.module('App').controller('RootCtrl', function ($rootScope, $scope, $mdSi
 	self.uid_password 	= root.base_url+'_session_password';
 
 	// retrieve session data
-	self.user = { 
-		name: $cookies.get(self.uid_name), 
-		email: $cookies.get(self.uid_email) 
+	self.user = {
+		name: $cookies.get(self.uid_name),
+		email: $cookies.get(self.uid_email)
 	};
-	
+
 	// when bar action clicked
 	root.barAction =  function(ev) {
-		root.$broadcast('barAction', ""); 
+		root.$broadcast('barAction', "");
 	};
-	
+
 	// when search icon click
-	root.searchAction =  function(ev) { 
+	root.searchAction =  function(ev) {
 		focus('search_input');
-		root.search_show = true; 
-		root.$broadcast('searchAction', null); 
+		root.search_show = true;
+		root.$broadcast('searchAction', null);
 	};
-	
+
 	// when search close
-	root.closeSearch =  function(ev) { 
-		root.search_show = false; 
-		root.$broadcast('submitSearch', ""); 
+	root.closeSearch =  function(ev) {
+		root.search_show = false;
+		root.$broadcast('submitSearch', "");
 	};
-	
+
 	// when search text submit
-	root.submitSearch =  function(ev, q) { 
-		root.$broadcast('submitSearch', q); 
+	root.submitSearch =  function(ev, q) {
+		root.$broadcast('submitSearch', q);
 	};
 	// when search text submit by press enter
 	root.keypressAction = function(k_ev, q) {
 		if (k_ev.which === 13){
-			root.$broadcast('submitSearch', q); 
+			root.$broadcast('submitSearch', q);
 		}
 	};
-	
+
 	root.closeAndDisableSearch = function(){
 		root.search_enable = false;
 		root.search_show = false;
@@ -87,15 +83,15 @@ angular.module('App').controller('RootCtrl', function ($rootScope, $scope, $mdSi
 	};
 
 	self.doLogout = function (ev) {
-		var confirm = $mdDialog.confirm().title('Logout Confirmation')
-			.content('Are you sure want to logout from user : ' + root.getSessionName() + ' ?')
+		var confirm = $mdDialog.confirm().title('Gracias por visitarnos')
+			.content('Estas apunto de salir de tu cuenta : ' + root.getSessionName() + ', da click en ok para confimar')
 			.targetEvent(ev)
-			.ok('OK').cancel('CANCEL');
+			.ok('OK').cancel('CANCELAR');
 		$mdDialog.show(confirm).then(function () {
 			// clear session
 			root.clearCookies();
 			window.location.href = '#login';
-			$mdToast.show($mdToast.simple().content('Logout Success').position('bottom right'));
+			$mdToast.show($mdToast.simple().content('Nos vemos pronto').position('bottom right'));
 		});
 	};
 
@@ -148,7 +144,7 @@ angular.module('App').controller('RootCtrl', function ($rootScope, $scope, $mdSi
 			return a - b
 		});
 	};
-	
+
 	root.getExtension = function (f) {
 		return (f.type == "image/jpeg" ? '.jpg' : '.png');
 	};
@@ -158,7 +154,7 @@ angular.module('App').controller('RootCtrl', function ($rootScope, $scope, $mdSi
 	root.constrainFilePng = function (f) {
 		return (f.type == "image/png" && f.size <= 500000);
 	};
-	
+
 	// for editing product
 	root.setCurProductId = function(product_id){
 		$cookies.put(root.base_url+'cur_product_id', product_id);
@@ -176,7 +172,7 @@ angular.module('App').controller('RootCtrl', function ($rootScope, $scope, $mdSi
 		var order_id = $cookies.get(root.base_url+'cur_order_id');
 		return (order_id != "") ? order_id : null;
 	};
-	
+
 	// for editing category
 	root.setCurCategoryId = function(category_id){
 		$cookies.put(root.base_url+'cur_category_id', category_id);
@@ -185,7 +181,7 @@ angular.module('App').controller('RootCtrl', function ($rootScope, $scope, $mdSi
 		var category_id = $cookies.get(root.base_url+'cur_category_id');
 		return (category_id != "") ? category_id : null;
 	};
-	
+
 	// for editing news info
 	root.setCurNewsInfoId = function(news_id){
 		$cookies.put(root.base_url+'cur_news_info_id', news_id);

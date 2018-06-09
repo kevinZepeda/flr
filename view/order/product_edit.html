@@ -1,12 +1,10 @@
 <md-dialog layout="column" flex="25" aria-label="dialog category">
     <md-dialog-content class="autoScroll" style="max-width:800px;max-height:810px;">
         <div ng-if="not_exist">
-            <p>Product with name <b>{{pod.product_name}}</b> not exist or already deleted</p>
+            <p>El articulo <b>{{pod.product_name}}</b> no existe o fue removido</p>
         </div>
         <div ng-if="!not_exist">
-            <p class="hint" ng-if="dif_name">New Product Name : <i>{{product.name}}</i></p>
-            <p>Product Name : <b>{{pod.product_name}}</b></p>
-            <p flex="30">Stock : <b>{{product.stock}} item(s)</b></p>
+            <p flex="30">Disponibles : <b>{{product.stock}} item(s)</b></p>
         </div>
         <md-divider></md-divider>
 

@@ -5,10 +5,10 @@ angular.module('App').controller('SettingController', function ($rootScope, $sco
 	if (!root.isCookieExist()) { window.location.href = '#login'; }
 	root.closeAndDisableSearch();
 	root.toolbar_menu = null;
-	$rootScope.pagetitle = 'Setting';
-	
+	$rootScope.pagetitle = 'Configuración';
+
 	/* Script controller for : Application Setting*/
-	
+
 	var original_conf = null;
 	var shipping = null;
 	self.config = [];
@@ -28,12 +28,12 @@ angular.module('App').controller('SettingController', function ($rootScope, $sco
 		shipping = root.findValue(self.config, 'SHIPPING');
 		self.conf_shipping = JSON.parse(shipping);
 	});
-	
+
 	request.getAllCurrency().then(function (resp) {
 		self.arr_currency = resp.data;
 		//console.log(JSON.stringify(self.arr_currency));
 	});
-	
+
 	self.setValue = function (code, value) {
 		for (var i = 0; i < self.config.length; ++i) {
 			var obj = self.config[i];
@@ -48,7 +48,7 @@ angular.module('App').controller('SettingController', function ($rootScope, $sco
     });
 
 	self.resetShipping = function() { self.conf_shipping = JSON.parse(shipping); };
-	
+
 	/* checker when all data ready to submit */
 	self.isReadySubmitConf = function () {
 		self.setValue('CURRENCY', self.selected_currency);
@@ -59,11 +59,11 @@ angular.module('App').controller('SettingController', function ($rootScope, $sco
 		var is_clean = angular.equals(original_conf, self.config);
 		return !is_clean;
 	};
-	
-	self.submitConf = function() {	
+
+	self.submitConf = function() {
 		self.submit_loading_conf = true;
 		//console.log(JSON.stringify(self.config));
-		request.updateAllConfig(self.config).then(function(resp){ 
+		request.updateAllConfig(self.config).then(function(resp){
 			if(resp.status == 'success'){
 				root.showConfirmDialogSimple('', resp.msg, function(){
 					window.location.reload();
@@ -73,10 +73,10 @@ angular.module('App').controller('SettingController', function ($rootScope, $sco
 			}
 		});
 	};
-	
-	
+
+
 	/* Script controller for : User Panel Setting*/
-	
+
 	var cur_id = root.getSessionUid();
 	self.submit_loading = false;
 	self.re_passwordValid = true;
@@ -148,5 +148,5 @@ angular.module('App').controller('SettingController', function ($rootScope, $sco
 			}
 		}, 1000);
 	};
-	
+
 });

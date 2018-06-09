@@ -4,8 +4,8 @@ angular.module('App').controller('ProductController', function ($rootScope, $sco
 
 	// not login checker
 	if (!root.isCookieExist()) { window.location.href = '#login'; }
-	
-	root.pagetitle = 'Product';
+
+	root.pagetitle = 'Artículos';
 	self.loading = true;
 	self.category_id = -1;
 	self.max_item = 20;
@@ -17,14 +17,14 @@ angular.module('App').controller('ProductController', function ($rootScope, $sco
 	}
 
 	root.search_enable = true;
-	root.toolbar_menu = { title: 'Add Product' };
+	root.toolbar_menu = { title: 'Agregar Articulo' };
 
 	// receiver barAction from rootScope
-	self.$on('barAction', function (event, data) {		
+	self.$on('barAction', function (event, data) {
 		root.setCurProductId("");
 		window.location.href = '#create_product';
 	});
-	
+
 	// receiver submitSearch from rootScope
 	self.$on('submitSearch', function (event, data) {
 		self.q = data;
@@ -36,7 +36,7 @@ angular.module('App').controller('ProductController', function ($rootScope, $sco
 		self.categories_data = resp.data;
 		self.categories_data.unshift(temp_category);
 	});
-	
+
 	// load pages from database and display
 	self.loadPages = function () {
 		$_q = self.q ? self.q : '';
@@ -54,7 +54,7 @@ angular.module('App').controller('ProductController', function ($rootScope, $sco
 			self.product = resp.data;
 			self.loading = false;
 		});
-		
+
 	};
 
 	// pagination property
@@ -66,12 +66,12 @@ angular.module('App').controller('ProductController', function ($rootScope, $sco
 		modulo_item: 0,
 		onPageChanged: self.loadPages,
 	};
-	
+
 	self.editProduct = function(ev, p) {
 		root.setCurProductId(p.id);
 		window.location.href = '#create_product';
 	};
-	
+
 	self.detailsProduct = function(ev, p) {
 		$mdDialog.show({
 			controller          : DetailsProductControllerDialog,
@@ -84,28 +84,28 @@ angular.module('App').controller('ProductController', function ($rootScope, $sco
 	};
 
 	self.deleteProduct = function(ev, p) {
-		var confirm = $mdDialog.confirm().title('Delete Confirmation');
-			confirm.content('Are you sure want to delete Product : '+p.name+' ?');
-			confirm.targetEvent(ev).ok('OK').cancel('CANCEL');
-			
+		var confirm = $mdDialog.confirm().title('¿Quieres eliminar este artículo?');
+			confirm.content('Estas seguro que quieres borrar : '+p.name+' ?');
+			confirm.targetEvent(ev).ok('OK').cancel('CANCELAR');
+
 		var dir = "../../../uploads/product/";
-		var images_obj = new Array();	
+		var images_obj = new Array();
 		images_obj.push(p.image);
 		request.getAllProductImageByProductId(p.id).then(function(resp){
 			for (var i = 0; i < resp.data.length; i++) {
 				images_obj.push(resp.data[i].name);
 			}
 		});
-		
+
 		$mdDialog.show(confirm).then(function() {
 			request.deleteOneProduct(p.id).then(function(res){
 				if(res.status == 'success'){
 					request.deleteFiles(dir, images_obj).then(function(res){ });
-                    root.showConfirmDialogSimple('', 'Delete Product '+p.name+' <b>Success</b>!', function(){
+                    root.showConfirmDialogSimple('', 'Articulo '+p.name+' borrado <b>Exitosamente</b>!', function(){
                         window.location.reload();
                     });
 				}else{
-                    root.showInfoDialogSimple('', 'Opps , <b>Failed Delete</b> Product '+p.name);
+                    root.showInfoDialogSimple('', 'Opps , <b>Fallo algo al borrar</b> el articulo '+p.name);
 				}
 			});
 		});
@@ -157,7 +157,7 @@ angular.module('App').controller('ProductController', function ($rootScope, $sco
             }
         }
     };
-	
+
 });
 
 function DetailsProductControllerDialog($scope, $mdDialog, request, $mdToast, $route, product) {
@@ -175,4 +175,3 @@ function DetailsProductControllerDialog($scope, $mdDialog, request, $mdToast, $r
 		self.images = resp.data;
 	});
 }
-

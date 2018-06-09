@@ -3,12 +3,12 @@
 
 <head>
   <meta charset="UTF-8"/>
-  <title>Markeet Admin Panel</title>
+  <title>Flerg_Articles</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <link href="lib/css/angular-material.min.css" rel="stylesheet prefetch" type="text/css"/>
   <link href="lib/css/fonts/material.css" rel="stylesheet" type="text/css"/>
   <link href="lib/css/style.css" rel="stylesheet" type="text/css"/>
- 
+
   <link href='lib/css/fonts/font-awesome.min.css' rel='stylesheet prefetch'/>
   <link rel="stylesheet" href="lib/css/style-ta.css">
   <link rel="stylesheet" href="lib/css/colorpicker.css">
@@ -32,14 +32,14 @@
   <script src="lib/js/angular-messages.min.js"></script>
   <script src="lib/js/angular-cookies.min.js"></script>
   <script src="lib/js/angular-sanitize.min.js"></script>
- 
+
   <script src="lib/js/pagination.js"></script>
   <script src='lib/js/textAngular.js'></script>
   <script src='lib/js/bootstrap-colorpicker-module.js'></script>
-  
-  <script src="app/app.js"></script>      
+
+  <script src="app/app.js"></script>
   <script src="app/root.js"></script>
-  <script src="app/request.js"></script> 
+  <script src="app/request.js"></script>
 
   <script src="controller/login.js"></script>
   <script src="controller/dashboard/dashboard.js"></script>
@@ -61,44 +61,25 @@
 <body>
 	<div ng-app="App" ng-controller="RootCtrl as ctl" layout="row" layout-fill ng-cloak>
 
-		<!-- Sliding Menu -->
-		<md-sidenav ng-hide="isLogin" class="md-sidenav-left md-whiteframe-z2" role="sidenav" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-			<!-- menu header -->
-			<md-toolbar class="nav-header md-hue-2" layout-align="end end">
-				<div class="md-toolbar-tools" layout layout-padding>
-					
-					<md-icon md-svg-src="lib/css/icons/web_icon.svg" class="material-icons md-36"></md-icon>
-					<div layout="column" layout-padding>
-						<span class="md-body-2">{{user.name}}</span>
-						<span class="md-caption">{{user.email}}</span>
-					</div>
-					<span flex></span>
-					
-					<md-menu md-position-mode="target-right target" >
-						<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
-							<md-icon>more_vert</md-icon>
-						</md-button>
-						<md-menu-content width=3>
-							<md-menu-item>
-							<md-button layout-fill md-ink-ripple ng-click="directHref('#setting')">Setting</md-button>
-							</md-menu-item>
+		<div tabindex="-1" layout="column" role="main" class="flex md-layout-column">
+      <div class="md-toolbar-tools" layout layout-padding style="width:20%;margin-bottom:-50px;">
 
-							<md-menu-item>
-							<md-button layout-fill md-ink-ripple ng-click="doLogout($event)">Logout</md-button>
-							</md-menu-item>
-						</md-menu-content>
-					</md-menu>
-				</div>
-			</md-toolbar>
+        <md-icon md-svg-src="lib/css/icons/web_icon.svg" class="material-icons md-36"></md-icon>
+        <div layout="column" layout-padding>
+          <span class="md-body-2">{{user.name}}</span>
+          <span class="md-caption">{{user.email}}</span>
+        </div>
+        <span flex></span>
 
-			<!-- SIDE MENU -->
-			<md-content role="navigation">
+      </div>
+      </md-toolbar>
+			<md-content ng-hide="isLogin"role="navigation" style="display: flex; width:70%; left:30%;">
 				<div ng-repeat="action in sidenav.actions">
 				<md-list-item ng-click="directHref(action.link)" ng-if="!action.sub">
 					<md-icon>{{action.icon}}</md-icon>
 					<p class="md-body-2">{{action.name}}</p>
 				</md-list-item>
-				
+
 				<!-- for handle sub menu -->
 				<md-list-item ng-if="action.sub" ng-click="action.sub_expand = !action.sub_expand">
 					<md-icon>{{action.icon}}</md-icon>
@@ -111,25 +92,22 @@
 				</md-list-item>
 				</div>
 			</md-content>
-
-		</md-sidenav>
-
-		<div tabindex="-1" layout="column" role="main" class="flex md-layout-column">
+      <!-- End to navigation -->
 			<md-toolbar ng-hide="isLogin" role="toolbar">
 				<div class="md-toolbar-tools">
 					<!-- toogle button -->
 					<md-button class="md-icon-button" ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
-						<md-icon>menu</md-icon>
+						<md-icon ng-hide="isLogin">menu</md-icon>
 					</md-button>
 
 					<!-- toolbar title -->
-					<h4 class="md-title">{{pagetitle}}</h4> <span flex></span>
-					
+					<h4 class="md-title" style="margin-left:80px;">{{pagetitle}}</h4> <span flex></span>
+
 					<!-- Search layout -->
 					<md-card flex ng-if="search_show">
 						<div layout="row">
 							<md-icon ng-click="closeSearch($event)" style="color:#BDBDBD;margin-left:10px;cursor:pointer;">close</md-icon>
-							<md-input-container flex md-no-float style="padding:6px;margin-left:5px">		
+							<md-input-container flex md-no-float style="padding:6px;margin-left:5px">
 								<input ng-model="q" id="search_input" class="search" placeholder="Search" ng-keypress="keypressAction($event, q)">
 							</md-input-container>
 							<md-icon ng-click="submitSearch($event, q)" style="color:#4DB151;margin-right:10px;cursor:pointer;">search</md-icon>
@@ -138,7 +116,7 @@
 
 					<!-- add search action -->
 					<md-button ng-if="search_enable && !search_show" class="md-icon-button" ng-click="searchAction($event)"><md-icon>search</md-icon></md-button>
-					
+
 					<!-- add button -->
 					<md-button ng-if="toolbar_menu != null" class="md-primary" ng-click="barAction($event)">{{toolbar_menu.title}}</md-button>
 
@@ -148,15 +126,15 @@
 						  <md-icon>more_vert</md-icon>
 						</md-button>
 						<md-menu-content width=3>
-						  <md-menu-item> <md-button layout-fill md-ink-ripple ng-click="directHref('#setting')">Setting</md-button> </md-menu-item>
-						  <md-menu-item> <md-button layout-fill md-ink-ripple ng-click="doLogout($event)">Logout</md-button></md-menu-item>
+						  <md-menu-item> <md-button layout-fill md-ink-ripple ng-click="directHref('#setting')">Configuración</md-button> </md-menu-item>
+						  <md-menu-item> <md-button layout-fill md-ink-ripple ng-click="doLogout($event)">Salir</md-button></md-menu-item>
 						</md-menu-content>
 					</md-menu>
 				</div>
 			</md-toolbar>
 
 			<!-- CONTENT PAGE -->
-			<md-content layout ng-hide="isLogin" md-scroll-y flex class="md-padding" ng-style="{'background' : bgColor}">
+			<md-content layout ng-hide="isLogin" md-scroll-y flex class="md-padding" ng-style="{'background' : #fff;}" style=" width: 60%; margin: auto;">
 				<div ng-view layout-fill flex></div>
 			</md-content>
 

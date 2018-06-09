@@ -31,7 +31,7 @@ angular.module('App').factory("request", function ($http, $cookies) {
 	};
 	obj.insertOneProduct = function (object) {
 		return $http.post(api_base + 'insertOneProduct', object, config).then(function (results) { return results.data; });
-	};	
+	};
 	obj.updateOneProduct = function (id, object) {
 		var data = {id:id, product:object};
 		return $http.post(api_base + 'updateOneProduct', data, config).then(function (results) { return results.data; });
@@ -39,33 +39,33 @@ angular.module('App').factory("request", function ($http, $cookies) {
 	obj.updateOneProduct = function (id, object) {
 		var data = {id:id, product:object};
 		return $http.post(api_base + 'updateOneProduct', data, config).then(function (results) { return results.data; });
-	};	
+	};
 	obj.deleteOneProduct = function (id) {
 		return $http.get(api_base + 'deleteOneProduct?id='+id, config).then(function (results) { return results.data; });
 	};
-	
+
 	// PRODUCT CATEGORY -----------------------------------------------------------------------
 	obj.insertAllProductCategory = function (object) {
-		return $http.post(api_base + 'insertAllProductCategory', object, config).then(function (results) { 
-			return results.data; 
+		return $http.post(api_base + 'insertAllProductCategory', object, config).then(function (results) {
+			return results.data;
 		});
 	};
-	
+
 	// PRODUCT IMAGE -------------------------------------------------------------------------
 	obj.insertAllProductImage = function (object) {
-		return $http.post(api_base + 'insertAllProductImage', object, config).then(function (results) { 
-			return results.data; 
+		return $http.post(api_base + 'insertAllProductImage', object, config).then(function (results) {
+			return results.data;
 		});
 	};
 	obj.getAllProductImageByProductId = function(product_id) {
 		return $http.get(api_base + 'getAllProductImageByProductId?product_id='+product_id);
-	};	
+	};
 	obj.deleteProductImageByName = function(name){
 		return $http.delete(api_base + 'deleteProductImageByName?name=' + name, config).then(function (results) {
 			return results.data;
 		});
 	};
-	
+
 	// CATEGORY -----------------------------------------------------------------------
 	obj.getAllCategory  = function () {
 		return $http.get(api_base + 'getAllCategory');
@@ -78,7 +78,7 @@ angular.module('App').factory("request", function ($http, $cookies) {
 	};
 	obj.getAllCategoryCount = function(q) {
 		return $http.get(api_base + 'getAllCategoryCount?q='+q);
-	};	
+	};
 	obj.getAllCategoryByProductId = function(product_id) {
 		return $http.get(api_base + 'getAllCategoryByProductId?product_id='+product_id);
 	};
@@ -92,7 +92,7 @@ angular.module('App').factory("request", function ($http, $cookies) {
 	obj.deleteOneCategory = function (id) {
 		return $http.get(api_base + 'deleteOneCategory?id='+id, config).then(function (results) { return results.data; });
 	};
-	
+
 	// PRODUCT ORDER --------------------------------------------------------------------------
 	obj.getOneProductOrder = function (id) {
 		return $http.get(api_base + 'getOneProductOrder?id='+id);
@@ -127,7 +127,7 @@ angular.module('App').factory("request", function ($http, $cookies) {
             return results.data;
         });
     };
-	
+
 	// FCM --------------------------------------------------------------------------
 	obj.getAllFcmByPage = function (page, limit, q) {
 		return $http.get(api_base + 'getAllFcmByPage?page=' +page+'&limit='+limit+'&q='+q);
@@ -138,7 +138,7 @@ angular.module('App').factory("request", function ($http, $cookies) {
 	obj.sendNotif = function (body) {
 		return $http.post(api_base + 'sendNotif', body, config).then(function (results) { return results.data; });
 	};
-	
+
 	// USER -----------------------------------------------------------------------------------
 	obj.login = function (userdata) {
 		return $http.post(api_base + 'login', userdata).then(function (results) { return results; });
@@ -153,7 +153,7 @@ angular.module('App').factory("request", function ($http, $cookies) {
 	obj.insertOneUser = function (user) {
 		return $http.post(api_base + 'insertOneUser', user, config).then(function (results) { return results.data; });
 	};
-	
+
 	// APP VERSION -----------------------------------------------------------------------
 	obj.getOneAppVersion = function (id) {
 		return $http.get(api_base + 'getOneAppVersion?id='+id);
@@ -163,10 +163,10 @@ angular.module('App').factory("request", function ($http, $cookies) {
 	};
 	obj.getAllAppVersionCount = function(q) {
 		return $http.get(api_base + 'getAllAppVersionCount?q='+q);
-	};	
+	};
 	obj.insertOneAppVersion = function (object) {
 		return $http.post(api_base + 'insertOneAppVersion', object, config).then(function (results) { return results.data; });
-	};	
+	};
 	obj.updateOneAppVersion = function (id, object) {
 		var data = {id:id, app_version:object};
 		return $http.post(api_base + 'updateOneAppVersion', data, config).then(function (results) { return results.data; });
@@ -174,7 +174,7 @@ angular.module('App').factory("request", function ($http, $cookies) {
 	obj.deleteOneAppVersion = function (id) {
 		return $http.get(api_base + 'deleteOneAppVersion?id='+id, config).then(function (results) { return results.data; });
 	};
-	
+
 	// NEWS INFO -----------------------------------------------------------------------
 	obj.getAllNewsInfo  = function (id) {
 		return $http.get(api_base + 'getAllNewsInfo');
@@ -187,10 +187,10 @@ angular.module('App').factory("request", function ($http, $cookies) {
 	};
 	obj.getAllNewsInfoCount = function(q) {
 		return $http.get(api_base + 'getAllNewsInfoCount?q='+q);
-	};	
+	};
 	obj.insertOneNewsInfo = function (object) {
 		return $http.post(api_base + 'insertOneNewsInfo', object, config).then(function (results) { return results.data; });
-	};	
+	};
 	obj.updateOneNewsInfo = function (id, object) {
 		var data = {id:id, news_info:object};
 		return $http.post(api_base + 'updateOneNewsInfo', data, config).then(function (results) { return results.data; });
@@ -200,8 +200,8 @@ angular.module('App').factory("request", function ($http, $cookies) {
 	};
 	obj.isFeaturedNewsExceed = function (id) {
 		return $http.get(api_base + 'isFeaturedNewsExceed').then(function (results) { return results.data; });
-	};	
-	
+	};
+
 	// CONFIG -------------------------------------------------------------------------
 	obj.getAllConfig = function () {
 		return $http.get(api_base + 'getAllConfig');
@@ -212,13 +212,13 @@ angular.module('App').factory("request", function ($http, $cookies) {
 	obj.updateOneAppVersion = function (id, object) {
 		var data = {id:id, app_version:object};
 		return $http.post(api_base + 'updateOneAppVersion', data, config).then(function (results) { return results.data; });
-	};	
-	
+	};
+
 	// CURRENCY -------------------------------------------------------------------------
 	obj.getAllCurrency = function () {
 		return $http.get(api_base + 'getAllCurrency');
 	};
-	
+
 	// FILE UTILITIES ---------------------------------------------------------------------------------
 	obj.uploadFileToUrl = function (f, dir, name, oldname) {
 		//console.log(JSON.stringify(resp.data));
@@ -234,7 +234,7 @@ angular.module('App').factory("request", function ($http, $cookies) {
 		};
 		return $http(request).then(function (resp) { return resp.data; });
 	};
-	
+
 	obj.deleteFiles = function (dir, names) {
 		var data = {target_dir:dir, file_names:names};
 		var request = {

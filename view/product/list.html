@@ -21,13 +21,11 @@
 			<thead class="sub-menu-bg" >
 				<tr >
 					<th width="1%">No</th>
-					<th width="20%">Name</th>
-					<th width="3%">Type</th>
-					<th width="5%">Price</th>
-					<th width="3%">Stock</th>
-					<th width="8%">Status</th>
-					<th width="5%">Update</th>
-					<th width="5%">Action</th>
+					<th width="20%">Articulo</th>
+					<th width="3%">Cantidad</th>
+					<th width="8%">Estatus</th>
+					<th width="5%">Actualización</th>
+					<th width="5%">Acción</th>
 				</tr>
 			</thead>
 			<md-divider></md-divider>
@@ -35,11 +33,6 @@
 				<tr ng-repeat="p in product">
 					<td data-title="No">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
 					<td data-title="Name">{{p.name | cut:false:40:' ...'}}</td>
-					<td data-title="Type">
-						<draft ng-if="p.draft == 1">DRAFT</draft>
-						<publish ng-if="p.draft != 1">PUBLISHED</publish>
-					</td>	
-					<td data-title="Price">{{p.price}}</td>
 					<td data-title="Stock">{{p.stock}}</td>
 					<td data-title="Status">
 						<ready-stock ng-if="p.status=='READY STOCK'">{{p.status}}</ready-stock>
@@ -56,25 +49,25 @@
 								<md-title class="md-padding"><b>MENU - {{p.name}}</b></md-title>
 								<md-menu-item>
 									<md-button layout-fill md-ink-ripple ng-click="detailsProduct($event, p)">
-										<md-icon md-class="md-primary" md-menu-align-target>launch</md-icon>Details
+										<md-icon md-class="md-primary" md-menu-align-target>launch</md-icon>Detalles
 									</md-button>
 								</md-menu-item>
 								<md-menu-item>
 									<md-button layout-fill md-ink-ripple ng-click="editProduct($event, p)">
-										<md-icon md-class="md-primary" md-menu-align-target>create</md-icon>Edit
+										<md-icon md-class="md-primary" md-menu-align-target>create</md-icon>Editar
 									</md-button>
 								</md-menu-item>
 								<md-menu-item ng-if="p.draft == 1">
 									<md-button layout-fill md-ink-ripple ng-click="publishDialog($event, p)">
-										<md-icon md-class="md-primary" md-menu-align-target>check_circle</md-icon>Publish
+										<md-icon md-class="md-primary" md-menu-align-target>check_circle</md-icon>Publicar
 									</md-button>
 								</md-menu-item>
 								<md-menu-item>
 									<md-button layout-fill md-ink-ripple ng-click="deleteProduct($event, p)">
-										<md-icon md-class="md-primary" md-menu-align-target>delete</md-icon>Delete
+										<md-icon md-class="md-primary" md-menu-align-target>delete</md-icon>Borrar
 									</md-button>
 								</md-menu-item>
-							</md-menu-content>  
+							</md-menu-content>
 						</md-menu>
 					</td>
 				</tr>
